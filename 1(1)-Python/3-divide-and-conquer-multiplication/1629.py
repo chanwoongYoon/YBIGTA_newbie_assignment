@@ -13,8 +13,16 @@ def fast_power(base: int, exp: int, mod: int) -> int:
     빠른 거듭제곱 알고리즘 구현
     분할 정복을 이용, 시간복잡도 고민!
     """
-    # 구현하세요!
-    pass
+    val = base%mod
+    if (exp == 1):
+        return val
+    
+    if (exp%2 == 1):
+        temp = fast_power(val,int(exp/2),mod)
+        return (temp * temp * val) % mod
+    else:
+        temp = fast_power(val,int(exp/2),mod)
+        return (temp * temp) % mod
 
 def main() -> None:
     A: int
