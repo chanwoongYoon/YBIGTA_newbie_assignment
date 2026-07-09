@@ -16,8 +16,18 @@ def simulate_card_game(n: int) -> int:
     카드2 문제의 시뮬레이션
     맨 위 카드를 버리고, 그 다음 카드를 맨 아래로 이동
     """
-    # 구현하세요!
-    pass
+    deque = create_circular_queue(n)
+    onoff = True
+    while (len(deque) > 1):
+        if(onoff):
+            onoff = not onoff
+            deque.popleft()
+        else:
+            onoff = not onoff
+            temp = deque.popleft()
+            deque.append(temp)
+    
+    print(deque.pop())
 
 def solve_card2() -> None:
     """입, 출력 format"""
