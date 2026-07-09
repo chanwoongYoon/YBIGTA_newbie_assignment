@@ -21,6 +21,5 @@ def main() -> None:
 
     print(modmat ** B)
 
-
 if __name__ == "__main__":
     main()
