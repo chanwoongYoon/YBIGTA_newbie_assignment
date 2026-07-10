@@ -46,8 +46,7 @@ class Matrix:
         return self.matrix[key[0]][key[1]]
 
     def __setitem__(self, key: tuple[int, int], value: int) -> None:
-        # 구현하세요!
-        pass
+        self.matrix[key[0]][key[1]] = value
 
     def __matmul__(self, matrix: Matrix) -> Matrix:
         x, m = self.shape
@@ -64,9 +63,16 @@ class Matrix:
         return result
 
     def __pow__(self, n: int) -> Matrix:
-        # 구현하세요!
-        pass
+        if (n == 0):
+            return Matrix.eye(self.shape[0])
+        if (n == 1):
+            return self.clone()
+        half = self ** (n//2)
+        if (n%2 == 0):
+            return half @ half
+        else:
+            return half @ half @ self
+
 
     def __repr__(self) -> str:
-        # 구현하세요!
-        pass
+        return "\n".join(str(row) for row in self.matrix)
