@@ -1,5 +1,6 @@
 from lib import Trie
 import sys
+import math
 
 
 """
@@ -12,8 +13,22 @@ TODO:
 
 
 def main() -> None:
-    # 구현하세요!
-    pass
+    input = sys.stdin.readline
+    MOD = 1_000_000_007
+
+    n = int(input())
+    trie: Trie[int] = Trie()
+    for _ in range(n):
+        name = input().rstrip()
+        trie.push(map(ord, name))  # str 대신 int로 변환해 저장 (메모리 절약)
+
+    tot = 1
+    for node in trie:
+        # 이 노드에서 뻗어나가는 가짓수: 자식들 + (여기서 끝나는 이름이 있으면 +1)
+        k = len(node.children) + (1 if node.is_end else 0)
+        tot = tot * math.factorial(k) % MOD
+
+    print(tot)
 
 
 if __name__ == "__main__":
