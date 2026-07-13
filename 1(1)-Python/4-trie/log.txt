@@ -1,0 +1,14 @@
+[TrieNode(body=None, children=[1, 8], is_end=False),
+ TrieNode(body='Q', children=[2], is_end=False),
+ TrieNode(body='W', children=[3, 6], is_end=False),
+ TrieNode(body='E', children=[4, 5], is_end=False),
+ TrieNode(body='R', children=[], is_end=True),
+ TrieNode(body='D', children=[], is_end=True),
+ TrieNode(body='R', children=[7], is_end=False),
+ TrieNode(body='W', children=[], is_end=True),
+ TrieNode(body='O', children=[9], is_end=False),
+ TrieNode(body='M', children=[10], is_end=False),
+ TrieNode(body='U', children=[11], is_end=False),
+ TrieNode(body='S', children=[], is_end=True)]
+ 
+3

@@ -15,7 +15,7 @@ T = TypeVar("T")
 @dataclass
 class TrieNode(Generic[T]):
     body: Optional[T] = None
-    children: dict[T, int] = field(default_factory=dict)
+    children: list[int] = field(default_factory=lambda: [])
     is_end: bool = False
 
 
@@ -32,13 +32,15 @@ class Trie(list[TrieNode[T]]):
         """
         num = 0
         for letter in seq:
-            #letter가 children안에 있을 때
-            if letter in self[num].children:
-                num = self[num].children[letter]
-            #letter가 children안에 없을 때
+            #children 중 body가 letter인 노드가 있으면 따라가기
+            for child in self[num].children:
+                if self[child].body == letter:
+                    num = child
+                    break
+            #없으면 새 노드를 만들어서 children에 등록
             else:
                 self.append(TrieNode(body=letter))
-                self[num].children[letter] = len(self) - 1
+                self[num].children.append(len(self) - 1)
                 num = len(self) - 1
         #seq 전체를 다 따라간 노드가 단어의 끝
         self[num].is_end = True
