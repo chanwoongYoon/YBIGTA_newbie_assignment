@@ -4,9 +4,15 @@
 ## TODO
 if command -v conda > /dev/null 2>&1; then
     echo "이미 미니콘다가 설치되어 있습니다. 설치를 건너뜁니다."
-else 
-    curl -O https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-    bash Miniconda3-latest-MacOSX-arm64.sh -b
+else
+    # OS/아키텍처에 맞는 설치 파일 선택 (Mac / WSL(Linux) 모두 지원)
+    if [[ "$(uname)" == "Darwin" ]]; then
+        INSTALLER="Miniconda3-latest-MacOSX-$(uname -m).sh"
+    else
+        INSTALLER="Miniconda3-latest-Linux-$(uname -m).sh"
+    fi
+    curl -O "https://repo.anaconda.com/miniconda/${INSTALLER}"
+    bash "${INSTALLER}" -b
 fi
 
 # Conda 환셩 생성 및 활성화
@@ -46,16 +52,16 @@ pip install mypy
 echo "mypy_log.txt 초기화"
 >mypy_log.txt
 
+mkdir -p output
+
 for file in submission/*.py; do
     ## TODO
     prob_num=$(echo "$file" | cut -d'_' -f2 | cut -d'.' -f1)
     echo "실행 중 : $file (문제번호 : $prob_num)"
     python "$file" < "input/${prob_num}_input" > "output/${prob_num}_output"
-    if mypy "$file" > /dev/null 2>&1; then
-        echo "$prob_num : Success" >> mypy_log.txt
-    else
-        echo "$prob_num : Fail" >> mypy_log.txt
-    fi
+    # mypy 실행 결과(원본 출력)를 mypy_log.txt에 저장
+    echo "== $file ==" >> mypy_log.txt
+    mypy "$file" >> mypy_log.txt 2>&1
 done
 
 # # conda.yml 파일 생성
