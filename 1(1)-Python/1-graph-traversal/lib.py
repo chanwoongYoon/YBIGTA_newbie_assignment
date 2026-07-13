@@ -1,8 +1,5 @@
 from __future__ import annotations
-import copy
 from collections import deque
-from collections import defaultdict
-from typing import DefaultDict, List
 
 
 """
@@ -21,16 +18,16 @@ class Graph:
         n: 정점의 개수 (1번부터 n번까지)
         """
         self.n = n
-        self.graph = [[] for _ in range(n+1)]
+        self.graph: list[list[int]] = [[] for _ in range(n+1)]
         self.sorted = False
 
         self.dfs_visited = [False for _ in range(n+1)]
         self.bfs_visited = [False for _ in range(n+1)]
 
-        self.queue = deque()
+        self.queue: deque[int] = deque()
 
-        self.dfs_result_lst = []
-        self.bfs_result_lst = []
+        self.dfs_result_lst: list[int] = []
+        self.bfs_result_lst: list[int] = []
 
     
     def add_edge(self, u: int, v: int) -> None:

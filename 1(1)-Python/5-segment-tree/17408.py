@@ -33,7 +33,7 @@ class Pair(tuple[int, int]):
         return Pair(w, 0)
 
     @staticmethod
-    def f_merge(a: Pair, b: Pair) -> 'Pair':
+    def f_merge(a: 'Pair', b: 'Pair') -> 'Pair':
         """
         두 Pair를 하나의 Pair로 합치는 연산
         이게 왜 필요할까...?
@@ -45,8 +45,35 @@ class Pair(tuple[int, int]):
 
 
 def main() -> None:
-    # 구현하세요!
-    pass
+    """
+    각 노드가 (구간 최댓값, 구간 2번째 최댓값) Pair를 갖는 세그먼트 트리를 유지한다.
+    - 1 i v: A[i]를 v로 갱신
+    - 2 l r: [l, r] 구간 Pair의 두 값의 합(= 최대 Ai + Aj)을 출력
+    """
+    data = sys.stdin.read().split()
+    idx = 0
+
+    n = int(data[idx])
+    idx += 1
+    arr = [int(x) for x in data[idx:idx + n]]
+    idx += n
+    m = int(data[idx])
+    idx += 1
+
+    tree: SegmentTree[int, Pair] = SegmentTree(
+        arr, Pair.default(), Pair.f_conv, Pair.f_merge
+    )
+
+    answers: list[str] = []
+    for _ in range(m):
+        q, a, b = int(data[idx]), int(data[idx + 1]), int(data[idx + 2])
+        idx += 3
+        if q == 1:
+            tree.update(a - 1, b)
+        else:
+            answers.append(str(tree.query(a - 1, b).sum()))
+
+    print("\n".join(answers))
 
 
 if __name__ == "__main__":

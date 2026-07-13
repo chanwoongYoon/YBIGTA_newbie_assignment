@@ -21,7 +21,7 @@ def count(trie: Trie, query_seq: str) -> int:
 
     return cnt + int(len(trie[0].children) == 1)
 
-trie = Trie()
+trie: Trie[str] = Trie()
 
 trie.push('QWER')
 trie.push('QWED')
