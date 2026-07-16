@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import socket
 from typing import Optional
-import pprint
 
 
 def resolve(host: str) -> tuple[list[str], Optional[str]]:
@@ -16,7 +15,7 @@ def resolve(host: str) -> tuple[list[str], Optional[str]]:
         # TODO: sockaddr에서 IP 주소만 추출하여 리스트(ips)로 만드세요.
         # HINT: 리스트 컴프리헨션을 사용하여 sockaddr[0] 값을 가져오세요.
 
-        ips = list(dict.fromkeys([item[-1][0] for item in infos]))
+        ips = list(dict.fromkeys([str(item[-1][0]) for item in infos]))
         ###########################################################
 
         return ips, None
