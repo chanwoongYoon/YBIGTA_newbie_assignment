@@ -300,3 +300,6 @@ test.sqlite3
 
 # pdf
 *.pdf
+
+#vscode
+*.vscode
