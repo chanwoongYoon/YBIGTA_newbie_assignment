@@ -298,8 +298,5 @@ error.log
 test.db
 test.sqlite3
 
-# pdf
-*.pdf
-
 #vscode
 *.vscode
